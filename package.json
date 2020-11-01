@@ -1,0 +1,35 @@
+{
+  "name": "diarydistiller",
+  "version": "1.0.0",
+  "description": "This is the project for UCSD IEEE Fall 2020 QP",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack --mode development --watch ./distiller/frontend/src/index.js --output ./distiller/frontend/static/frontend/main.js",
+    "build": "webpack --mode production ./distiller/frontend/src/index.js --output ./distiller/frontend/static/frontend/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Franktheknight/QP-Team-10.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Franktheknight/QP-Team-10/issues"
+  },
+  "homepage": "https://github.com/Franktheknight/QP-Team-10#readme",
+  "devDependencies": {
+    "@babel/core": "^7.12.3",
+    "@babel/preset-env": "^7.12.1",
+    "@babel/preset-react": "^7.12.1",
+    "babel-loader": "^8.1.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "webpack": "^5.3.2",
+    "webpack-cli": "^4.1.0"
+  },
+  "dependencies": {
+    "prop-types": "^15.7.2",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  }
+}
