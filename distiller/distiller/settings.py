@@ -25,7 +25,7 @@ SECRET_KEY = '#nq0-n_lti=)2d5)@i%l&%*i_@&*^947ur0pjg)=xea4muu(2%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -37,6 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'diaries',
+    'rest_framework',
+    'frontend',
+    'knox',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -47,9 +52,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'rest_framework',
-    'knox',
-    'frontend',
 ]
 
 ROOT_URLCONF = 'distiller.urls'

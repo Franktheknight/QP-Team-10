@@ -4,7 +4,7 @@
   "description": "This is the project for UCSD IEEE Fall 2020 QP",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack --mode development --watch ./distiller/frontend/src/index.js --output ./distiller/frontend/static/frontend/main.js",
+    "dev": "webpack --mode development --watch",
     "build": "webpack --mode production ./distiller/frontend/src/index.js --output ./distiller/frontend/static/frontend/main.js"
   },
   "repository": {
@@ -22,6 +22,7 @@
     "@babel/core": "^7.12.3",
     "@babel/preset-env": "^7.12.1",
     "@babel/preset-react": "^7.12.1",
+    "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "eslint": "^7.13.0",
@@ -30,6 +31,7 @@
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "husky": "^4.3.0",
     "prettier": "^2.1.2",
     "pretty-quick": "^3.1.0",
@@ -39,7 +41,8 @@
   "dependencies": {
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "react-dom": "^17.0.1",
+    "react-router-dom": "^5.2.0"
   },
   "husky": {
     "hooks": {
