@@ -19,7 +19,7 @@ const PrivateRender = ({ component: Component, isLoading, isAuthenticated, ...re
 PrivateRender.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  component: PropTypes.element.isRequired,
+  component: PropTypes.func.isRequired,
 };
 
 export default PrivateRender;

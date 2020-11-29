@@ -1,9 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import axios from 'axios';
-import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import rootComponent from './components';
+import RootComponent from './components';
 import SearchBar from './components/SearchBar/SearchBar';
 import Alert from './components/miscellaneous/Alerts';
 import Login from './components/forms/login';
@@ -18,14 +18,16 @@ export default class App extends Component {
     messages: {},
     auth: {
       token: localStorage.getItem('token'),
-      isAuthenticated: null,
+      isAuthenticated: false,
       isLoading: false,
       user: null,
     },
   };
 
   componentDidMount() {
-    this.loadUser();
+    if (this.state.auth.user) {
+      this.loadUser();
+    }
   }
 
   // Setup config with token - helper function
@@ -224,7 +226,7 @@ export default class App extends Component {
               path="/"
               render={() => {
                 return (
-                  <rootComponent
+                  <RootComponent
                     diaries={diaries}
                     auth={auth}
                     deleteDiary={this.deleteDiary}
@@ -234,15 +236,13 @@ export default class App extends Component {
               }}
             />
             <Route
-              exact
-              path="/login"
+              path="/#/login"
               render={() => {
                 return <Login login={this.login} />;
               }}
             />
             <Route
-              exact
-              path="/register"
+              path="/#/register"
               render={() => {
                 return <Register register={this.register} />;
               }}

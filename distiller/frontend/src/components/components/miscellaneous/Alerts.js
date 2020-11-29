@@ -7,6 +7,7 @@ import Alert from 'react-bootstrap/Alert';
 /* eslint-disable react/state-in-constructor  */
 /* eslint-disable react/no-did-update-set-state  */
 /* eslint-disable react/jsx-fragments  */
+/* eslint-disable react/forbid-prop-types  */
 
 export default class Alerts extends Component {
   state = { variant: 'danger', message: '', visibility: false };
@@ -88,8 +89,8 @@ export default class Alerts extends Component {
 }
 
 Alerts.propTypes = {
-  error: PropTypes.object.shape({
-    msg: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)),
+  error: PropTypes.shape({
+    msg: PropTypes.object,
     status: PropTypes.number,
   }).isRequired,
   message: PropTypes.objectOf(PropTypes.string).isRequired,
