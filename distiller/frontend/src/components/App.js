@@ -5,6 +5,9 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import rootComponent from './components';
 import SearchBar from './components/SearchBar/SearchBar';
+import Alert from './components/miscellaneous/Alerts';
+import Login from './components/forms/login';
+import Register from './components/forms/register';
 /* eslint-disable react/state-in-constructor  */
 
 //  let login = false;
@@ -20,6 +23,10 @@ export default class App extends Component {
       user: null,
     },
   };
+
+  componentDidMount() {
+    this.loadUser();
+  }
 
   // Setup config with token - helper function
   tokenConfig = () => {
@@ -71,7 +78,7 @@ export default class App extends Component {
     axios
       .delete(`/api/diaries/${id}/`, this.tokenConfig())
       .then((res) => {
-        this.createMessage({ deleteLead: 'Lead Deleted' });
+        this.createMessage({ deleteDiary: 'Diary Deleted' });
         this.setState((state) => {
           return { ...state, diaries: state.diaries.filter((diary) => diary.id !== id) };
         });
@@ -84,7 +91,7 @@ export default class App extends Component {
     axios
       .post('/api/diaries/', diary, this.tokenConfig())
       .then((res) => {
-        this.createMessage({ addLead: 'Lead Added' });
+        this.createMessage({ addDiary: 'Diary Added' });
         this.setState((state) => {
           return { ...state, diaries: [...state.diaries, diary] };
         });
@@ -202,13 +209,44 @@ export default class App extends Component {
       });
   };
 
+  //  make actions for likes and privacy as well
+
   render() {
+    const { errors, messages, diaries, auth } = this.state;
     return (
       <Router>
         <>
-          <SearchBar />
+          <SearchBar logout={this.logout} addDiary={this.addDiary} />
+          <Alert error={errors} message={messages} />
           <Switch>
-            <Route exact path="/" component={rootComponent} />
+            <Route
+              exact
+              path="/"
+              render={() => {
+                return (
+                  <rootComponent
+                    diaries={diaries}
+                    auth={auth}
+                    deleteDiary={this.deleteDiary}
+                    getDiaries={this.getDiaries}
+                  />
+                );
+              }}
+            />
+            <Route
+              exact
+              path="/login"
+              render={() => {
+                return <Login login={this.login} />;
+              }}
+            />
+            <Route
+              exact
+              path="/register"
+              render={() => {
+                return <Register register={this.register} />;
+              }}
+            />
           </Switch>
         </>
       </Router>
