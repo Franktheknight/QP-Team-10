@@ -5,11 +5,14 @@ import Post from "./post";
 import Row from 'react-bootstrap/Row'
 import Carousel from 'react-bootstrap/Carousel'
 
+const link = "#"  //backend post redirect
+
 const post = {
   title: "Sample Title",  //put backend props here?
   summary: "sample summary of the post in the for you section", //put backend props here?
-  link: "sample Link" //put backend props here?
+  link: link //put backend props here?
 }
+
 function ForYou() {
   return (
     <div className="forYou">

@@ -5,10 +5,12 @@ import Post from "./post.js";
 import Row from 'react-bootstrap/Row'
 import Carousel from 'react-bootstrap/Carousel'
 
+const link = "#"  //backend post redirect
+
 const post = {
     title: "Trending Title", //put backend props here?
     summary: "Trending post summary of the post", //put backend props here?
-    link: "Trending Link" //put backend props here?
+    link: link //put backend props here?
 }
 
 
@@ -19,18 +21,18 @@ function Trending() {
             <Carousel controls={false} className="Center">
                 <Carousel.Item>
                     <Row>
-                        <Post {...post}/>
-                        <Post {...post}/>
-                        <Post {...post}/>
-                        <Post {...post}/>
+                        <Post {...post} />
+                        <Post {...post} />
+                        <Post {...post} />
+                        <Post {...post} />
                     </Row>
                 </Carousel.Item>
                 <Carousel.Item>
                     <Row>
-                        <Post {...post}/>
-                        <Post {...post}/>
-                        <Post {...post}/>
-                        <Post {...post}/>
+                        <Post {...post} />
+                        <Post {...post} />
+                        <Post {...post} />
+                        <Post {...post} />
                     </Row>
                 </Carousel.Item>
             </Carousel>
