@@ -13,11 +13,13 @@ def text_to_queries (text, query_length):
     return queries
 
 #curl -d '{"instances": [1.0, 2.0, 5.0]}' \
-#-X POST http://localhost:8501/v1/models/half_plus_two:predict
+#-X POST http://localhost:8501/v1/models/infer_emotion:predict
 def post_to_model(t, ql):
     headers = {"content-type": "application/json"}
     data = json.dumps({"signature_name": "serving_default", "instances": text_to_queries(t, ql)})
-    url = 'http://localhost:8501/v1/models/infer_emotion:predict'
+    #url = 'http://localhost:8501/v1/models/infer_emotion/versions/1:predict'
+    #url = 'http://localhost:8501/v1/models/infer_emotion:predict'
+    url = 'http://test-tfs.herokuapp.com/v1/models/infer_emotion/versions/1:predict'
     r = requests.post(url, data = data, headers=headers)
     if(r.status_code == 200):
         output = np.argmax(json.loads(r.text)['predictions'], axis = 1)
