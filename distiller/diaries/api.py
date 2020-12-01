@@ -37,6 +37,6 @@ class DiaryTensorflowPreprocessing(viewsets.ModelViewSet):
   
   def preprocessing(input_string):
     tokenizer = preprocessing.text.tokenizer_from_json('tokenizer.json')
-    tokenized_inputs = tokenizer.texts_to_sequences(input_string)
+    tokenized_inputs = tokenizer.texts_to_sequences([input_string])
     padded_inputs = preprocessing.sequence.pad_sequences(tokenized_inputs, maxlen=1000)
     return padded_inputs #This will be sent in the POST request to serving
