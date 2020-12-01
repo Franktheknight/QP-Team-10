@@ -5,11 +5,12 @@ import Post from "./post";
 import Row from 'react-bootstrap/Row'
 import Carousel from 'react-bootstrap/Carousel'
 
+
 function ForYou() {
   return (
     <div className="forYou">
       <h1>For You</h1>
-      <Carousel>
+      <Carousel className="Center">
         <Carousel.Item>
           <Row>
             <Post />

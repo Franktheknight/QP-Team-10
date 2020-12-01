@@ -9,7 +9,7 @@ function Trending() {
     return (
         <div className="trending">
             <h1>Trending Now</h1>
-            <Carousel >
+            <Carousel className="Center">
                 <Carousel.Item>
                     <Row>
                         <Post />
