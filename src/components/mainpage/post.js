@@ -2,15 +2,16 @@ import React from "react";
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 
-function Post() {
+function Post(props) {
+    const {...other} = props;
     return (
         <Card style={{ width: '18rem' }}>
             <Card.Body>
-                <Card.Title>Card Title</Card.Title>
+                <Card.Title>{other.title}</Card.Title>
                 <Card.Text>
-                    Example summary or title
+                    {other.summary}
                 </Card.Text>
-                <Button variant="primary">Go somewhere</Button>
+                <Button variant="primary">{other.link}</Button>
             </Card.Body>
         </Card>
     );

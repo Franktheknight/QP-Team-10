@@ -20,7 +20,7 @@ function App() {
         <Trending />
         <ForYou />
       </div>
-      
+
     );
   }
   else {
