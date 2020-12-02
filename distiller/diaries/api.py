@@ -35,8 +35,13 @@ class DiaryTensorflowPreprocessing(viewsets.ModelViewSet):
   queryset = Diary.objects.all()
   intermediate = [item.entry for item in queryset]
   
-  def preprocessing(input_string):
-    tokenizer = preprocessing.text.tokenizer_from_json('tokenizer.json')
+  #Takes in string of post, return 2-element array of floats from model
+  def inferEmotion(input_string):
+    tokenizer = pre.text.tokenizer_from_json(uploaded['tokenizer.json'])
     tokenized_inputs = tokenizer.texts_to_sequences([input_string])
-    padded_inputs = preprocessing.sequence.pad_sequences(tokenized_inputs, maxlen=1000)
-    return padded_inputs #This will be sent in the POST request to serving
+    padded_inputs = pre.sequence.pad_sequences(tokenized_inputs, maxlen=1000)
+    formatted_input = model_input.tolist()
+    data = json.dumps({"instances": formatted_input})
+    json_response = requests.post("http://diadist.herokuapp.com/v1/models/diarydistiller/versions/1:predict", data=data)
+    response = json.loads(json_response.text)
+    return response["predictions"][0]
