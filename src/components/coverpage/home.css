@@ -20,19 +20,20 @@
 .title {
     position: absolute;
     top: 25%;
-    left: 10%;
+    left: 50%;
     transform: translate(-50%,-50%);
 }
 
 .title h1{
     color: white;
     font-size: 70px;
+    
 }
 
 .about {
     position: absolute;
     top: 65%;
-    left: 16%;
+    left: 50%;
     transform: translate(-50%,-50%);
 }
 
@@ -44,8 +45,8 @@
 .description {
     font-family: monospace;
     position: absolute;
-    top: 38%;
-    left: 36%;
+    top: 39%;
+    left: 50%;
     transform: translate(-50%,-50%);
 }
 
@@ -57,8 +58,8 @@
 .adis {
     font-family: monospace;
     position: absolute;
-    top: 78%;
-    left: 36%;
+    top: 79%;
+    left: 50%;
     transform: translate(-50%,-50%);
 }
 
@@ -69,7 +70,7 @@
 
 .button {
     position: absolute;
-    top: 95%;
+    top: 98%;
     left: 50%;
     transform: translate(-50%,-50%);
 }
