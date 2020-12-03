@@ -2,6 +2,8 @@ from diaries.models import Diary
 from rest_framework import viewsets, permissions
 from .serializers import DiarySerializer
 
+from keras import preprocessing
+
 # Lead Viewset
 
 
@@ -20,8 +22,15 @@ class DiaryViewSet(viewsets.ModelViewSet):
 class DiaryViewPopularSet(viewsets.ModelViewSet):
 
   serializer_class = DiarySerializer
-  queryset = Diary.objects.all().order_by('-likes')
+  queryset = Diary.objects.all().order_by('-likes')[:10]
 
   def update(self, request, *args, **kwargs):
     kwargs['partial'] = True
     return super.update(request, *args, **kwargs)
+
+class DiaryTensorFlowPreprocessing(viewsets.ModelViewSet):
+
+  serializer_class = DiarySerializer
+  queryset = Diary.objects.all()
+  intermediate = [item.entry for item in queryset]
+

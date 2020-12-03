@@ -9,7 +9,7 @@ import ForYou from './mainpage/foryou';
 import Trending from './mainpage/trendingposts';
 import Home from './coverpage/home';
 
-const mainModule = ({ auth, diaries }) => (
+const mainModule = ({ auth, diaries, getDiaries, deleteDiary }) => (
   <Router>
     <>
       <PrivateRender
@@ -20,7 +20,13 @@ const mainModule = ({ auth, diaries }) => (
         isAuthenticated={auth.isAuthenticated}
         diaries={diaries}
       />
-      <Route exact path="/main" component={Trending} />
+      <Route
+        exact
+        path="/main"
+        render={() => {
+          return <Trending />;
+        }}
+      />
       <Route exact path="/cover" component={Home} />
     </>
   </Router>

@@ -12,6 +12,7 @@ psycopg2 = "*"
 djangorestframework = "*"
 django-rest-knox = "*"
 pylint-django = "*"
+keras = "*"
 
 [requires]
 python_version = "3.8"

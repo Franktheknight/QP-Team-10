@@ -30,6 +30,8 @@ export default class App extends Component {
     }
   }
 
+  //
+
   // Setup config with token - helper function
   tokenConfig = () => {
     // Get token from state
@@ -215,6 +217,7 @@ export default class App extends Component {
 
   render() {
     const { errors, messages, diaries, auth } = this.state;
+    // 127.0.0.1:8000/
     return (
       <Router>
         <>
