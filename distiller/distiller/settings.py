@@ -95,6 +95,7 @@ DATABASES = {
 
 db_from_env = dj_database_url.config(conn_max_age=600)
 DATABASES['default'].update(db_from_env)
+#db_from_env.update(DATABASES['default'])
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -135,9 +136,12 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 #giving Heroku info about where to find other static files
-PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+    #BASE_DIR = Path(__file__).resolve().parent.parent
+    #os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PROJECT_ROOT = Path(__file__).resolve().parent #os.path.dirname(os.path.abspath(__file__))
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
+#STATIC_ROOT = PROJECT_ROOT / 'static' #os.path.join(PROJECT_ROOT, 'static')
+STATIC_ROOT = BASE_DIR / 'staticfiles' #os.path.join(PROJECT_ROOT, 'static')
 
 # Configure Django App for Heroku.
 django_on_heroku.settings(locals())
