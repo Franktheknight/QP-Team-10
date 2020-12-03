@@ -5,14 +5,20 @@ function Home() {
     return (
         <div className="HomePage">
             <div className="title">
-                <h1>CARE</h1>
+                <p>
+                    <h1>CARE</h1>
+                </p>
             </div>
             <div className="description">
                 <h2>Want to vent your problems and meet new people? CARE allows you to let out your emotions annonomously and help you form a support group.</h2>
             </div>
-
+            <div class="hr">
+                <hr />
+            </div>
             <div className="about">
-                <h1>ABOUT US</h1>
+                <p>
+                    <h1>ABOUT US</h1>
+                </p>
             </div>
 
             <div className="adis">
@@ -20,7 +26,9 @@ function Home() {
             </div>
 
             <div className="button">
-                <a class="Homebtn">Contact</a>
+                <p>
+                    <a class="Homebtn">Contact</a>
+                </p>
             </div>
         </div>
     )
