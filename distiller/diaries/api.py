@@ -3,7 +3,8 @@ from rest_framework import viewsets, permissions
 from .serializers import DiarySerializer
 
 #Added by Kanishk, 11/29/20
-from keras import preprocessing
+#from keras import preprocessing
+import keras_preprocessing as pre
 
 # Lead Viewset
 
