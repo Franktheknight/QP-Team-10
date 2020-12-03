@@ -2,9 +2,12 @@ from diaries.models import Diary
 from rest_framework import viewsets, permissions
 from .serializers import DiarySerializer
 
-#Added by Kanishk, 11/29/20
-from keras import preprocessing
-
+#Added by Kanishk, 11/29/20; revised by Boopala 12/3/20
+#from keras import preprocessing
+import requests
+from keras_preprocessing import text, sequence
+import json
+import numpy as np
 # Lead Viewset
 THRESHOLD = 0.63
 
@@ -23,11 +26,15 @@ class DiaryViewSet(viewsets.ModelViewSet):
         emotion = self.inferEmotion(self.request.data.entry)
         serializer.save(owner=self.request.user, analysis=emotion)
 
+     #Takes in string of post, return 2-element array of floats from model
     def inferEmotion(self, input_string):
-        tokenizer = pre.text.tokenizer_from_json(uploaded['tokenizer.json'])
+        with open('tokenizer.json') as f:
+          data = json.load(f)
+        newdata = json.dumps(data)
+        tokenizer = text.tokenizer_from_json(newdata)
         tokenized_inputs = tokenizer.texts_to_sequences([input_string])
-        padded_inputs = pre.sequence.pad_sequences(tokenized_inputs, maxlen=1000)
-        formatted_input = model_input.tolist()
+        padded_inputs = sequence.pad_sequences(tokenized_inputs, maxlen=1000)
+        formatted_input = padded_inputs.tolist()
         data = json.dumps({"instances": formatted_input})
         json_response = requests.post("http://diadist.herokuapp.com/v1/models/diarydistiller/versions/1:predict", data=data)
         response = json.loads(json_response.text)
@@ -45,7 +52,7 @@ class DiaryViewPopularSet(viewsets.ModelViewSet):
         kwargs['partial'] = True
         return super.update(request, *args, **kwargs)
 
-#Added by Kanishk, 11/29/20
+#Added by Kanishk, 11/29/20, revised by Boopala 12/3/20
 class DiaryTensorflowPreprocessing(viewsets.ModelViewSet):
 
   permission_classes = [
@@ -88,5 +95,4 @@ class DiaryTensorflowPreprocessing(viewsets.ModelViewSet):
 
 
 
-  #Takes in string of post, return 2-element array of floats from model
 
