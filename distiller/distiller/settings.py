@@ -25,9 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '#nq0-n_lti=)2d5)@i%l&%*i_@&*^947ur0pjg)=xea4muu(2%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'nameofapp.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'diarydistiller.herokuapp.com']
 
 
 # Application definition
@@ -94,8 +94,9 @@ DATABASES = {
     }
 }
 
-# db_from_env = dj_database_url.config(conn_max_age=600)
-# DATABASES['default'].update(db_from_env)
+DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+#db_from_env = dj_database_url.config(conn_max_age=600)
+#DATABASES['default'].update(db_from_env)
 #db_from_env.update(DATABASES['default'])
 
 # Password validation
