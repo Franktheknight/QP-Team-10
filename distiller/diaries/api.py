@@ -44,6 +44,7 @@ class DiaryViewPopularSet(viewsets.ModelViewSet):
 
     serializer_class = DiarySerializer
     likes_set = Diary.objects.all().order_by('-likes')
+    #likes_set = Diary.objects.order_by('-likes')
     if (likes_set.count() >= 10):
         likes_set = likes_set[:10]
     queryset = likes_set
@@ -63,11 +64,13 @@ class DiaryTensorflowPreprocessing(viewsets.ModelViewSet):
 
   def get_queryset(self):
         current_user = self.request.user.diaries.all().order_by('-created_at')
+        #current_user = self.request.user.diaries.order_by('-created_at')
         if(current_user.count() < 1):
           current_user = [1,1]
         else:
           current_user = current_user[:1]
         recent_entries =  Diary.objects.all().order_by('-created_at')
+        #recent_entries =  Diary.objects.order_by('-created_at')
         recent_entries = [entry for entry in recent_entries if entry.private == False ]
         recent_entries = [entry for entry in recent_entries if self.recommend(entry, current_user[0]) ]
 
