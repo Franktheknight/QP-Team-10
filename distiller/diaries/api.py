@@ -86,7 +86,7 @@ class DiaryTensorflowPreprocessing(viewsets.ModelViewSet):
     HappinessMeasure = (currUserHappiness - currDatabaseHappiness) ^ 2
     SatisfactionMeasure = (currUserSatisfaction - currDatabaseSatisfaction) ^ 2
 
-    totalMeasure = HappinessMeasure - SatisfactionMeasure
+    totalMeasure = HappinessMeasure + SatisfactionMeasure
 
     return (totalMeasure / 2) < THRESHOLD
 
