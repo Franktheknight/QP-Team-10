@@ -23,7 +23,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+#SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = '#nq0-n_lti=)2d5)@i%l&%*i_@&*^947ur0pjg)=xea4muu(2%' 
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -95,10 +96,7 @@ DATABASES = {
     }
 }
 
-DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
-#db_from_env = dj_database_url.config(conn_max_age=600)
-#DATABASES['default'].update(db_from_env)
-#db_from_env.update(DATABASES['default'])
+DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=False)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
