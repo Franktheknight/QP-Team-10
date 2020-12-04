@@ -8,9 +8,10 @@ from django.contrib.auth.models import User
 class Diary(models.Model):
     private = models.BooleanField()
     #anonymous
-    analysis = ArrayField(
+    spectrum = ArrayField(
         models.IntegerField(),
         size=2,
+        default=list
     )
     likes = models.IntegerField(default=0)
     entry = models.CharField(max_length=200, blank=True)

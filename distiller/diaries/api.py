@@ -24,9 +24,9 @@ class DiaryViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         emotion = self.inferEmotion(self.request.data.entry)
-        serializer.save(owner=self.request.user, analysis=emotion)
+        serializer.save(owner=self.request.user, spectrum=emotion)
 
-     #Takes in string of post, return 2-element array of floats from model
+     #  Takes in string of post, return 2-element array of floats from model
     def inferEmotion(self, input_string):
         with open('tokenizer.json') as f:
           data = json.load(f)
@@ -58,8 +58,8 @@ class DiaryTensorflowPreprocessing(viewsets.ModelViewSet):
   permission_classes = [
         permissions.IsAuthenticated,
     ]
-  intermediate = [item.entry for item in queryset]
-  queryset = Diary.objects.all()
+  # intermediate = [item.entry for item in queryset]
+  # queryset = Diary.objects.all()
 
   def get_queryset(self):
         current_user = self.request.user.diaries.all().order_by('-created_at')
@@ -77,16 +77,16 @@ class DiaryTensorflowPreprocessing(viewsets.ModelViewSet):
 
   def recommend(self, db_entry, user_entry):
 
-    currUserHappiness = user_entry.analysis[0]
-    currDatabaseHappiness = db_entry.analysis[0]
+    currUserHappiness = user_entry.spectrum[0]
+    currDatabaseHappiness = db_entry.spectrum[0]
 
-    currUserSatisfaction = user_entry.analysis[1]
-    currDatabaseSatisfaction = db_entry.analysis[1]
+    currUserSatisfaction = user_entry.spectrum[1]
+    currDatabaseSatisfaction = db_entry.spectrum[1]
 
     HappinessMeasure = (currUserHappiness - currDatabaseHappiness) ^ 2
     SatisfactionMeasure = (currUserSatisfaction - currDatabaseSatisfaction) ^ 2
 
-    totalMeasure = HappinessMeasure + SatisfactionMeasure
+    totalMeasure = HappinessMeasure - SatisfactionMeasure
 
     return (totalMeasure / 2) < THRESHOLD
 
