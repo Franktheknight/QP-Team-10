@@ -4,7 +4,9 @@
 	session_start();
 	@$id = $_SESSION["user_id"];
 	@$username = $_SESSION["username"];
-
+	
+	$data;
+	
 	function inferEmotion($inputtext) {
 		#===TOKENIZATION===
 		$inputtext = strtolower($inputtext);
@@ -20,6 +22,8 @@
 		#but nothing fatal, still worth looking into
 
 		$json = file_get_contents('tokenizer.json');
+		
+		global $data;
 		$data = json_decode($json);
 		$data = $data->config;
 		$data = json_decode($data->index_word);
@@ -64,7 +68,7 @@
 		$result_json = curl_exec($ch);
 		curl_close($ch);  
 		$response = json_decode($result_json);
-		return $response->predictions[0]
+		return $response->predictions[0];
 	}
 ?>
 
@@ -114,7 +118,7 @@
 					$anon = $_POST['anon'];
 				
 					//Enter POST request to model here
-					$result_array = inferEmotion($entry)
+					$result_array = inferEmotion($entry);
 					$happiness = $result_array[0];
 					$satisfaction = $result_array[1];
 				
