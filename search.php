@@ -31,8 +31,8 @@
 			$query = mysqli_query($dbc,	$sql);
 			$userEntries = mysqli_fetch_all($query);
 			
-			if(count($userEntries) == 0){//If user has no previous entries
-				$lastHappiness = 1;//Set default matching values
+			if(count($userEntries) == 0){
+				$lastHappiness = 1;
 				$lastSatisfaction = 1;
 			}
 			else{
@@ -45,9 +45,10 @@
 			$sql = "SELECT * FROM diaries where user_name != '$username' and public = 'y'";
 			$query = mysqli_query($dbc,$sql);
 			
-			if(count($userEntries) > 0){//Make sure query went through
+			if($query){//Make sure query went through
 				$results = mysqli_fetch_all($query);
 				
+				$numRecommended = 0;
 				for($i = count($results)-1; $i >= 0; $i--){
 					$currResult = $results[$i];
 					
@@ -59,7 +60,7 @@
 					//Check if posts are similar enough
 					$meanSquaredError = (sq_error($lastHappiness,$currHappiness) + sq_error($lastSatisfaction,$currSatisfaction))/2;
 					if($meanSquaredError > $threshold){
-						//continue;
+						continue;
 					}
 					
 					//Check/Set anonymity of post
@@ -71,6 +72,26 @@
 					}
 					
 					print("<div class='searchResult'>" . $currResult[1] . "<br/> Written by " . $currEntryUser . "</div>");
+					$numRecommended++;
+				}
+				
+				if($numRecommended == 0){
+					print("Sorry, we couldn't find any posts similar to yours. Here are some recent ones instead. <br/><br/>");
+					
+					for($i = count($results)-1; $i > count($results) - 9; $i--){//8 most recent posts
+						$currResult = $results[$i];
+						$currEntryText = stripslashes($currResult[1]);
+						
+						//Check/Set anonymity of post
+						if($currResult[4] == 'y'){
+							$currEntryUser = "Anonymous";
+						}
+						else{
+							$currEntryUser = $currResult[2];
+						}
+						
+						print("<div class='searchResult'>" . $currResult[1] . "<br/> Written by " . $currEntryUser . "</div>");
+					}
 				}
 			}
 			else{
