@@ -1,1 +1,2 @@
-web: gunicorn distiller.wsgi --log-file -
+release: python3 manage.py migrate
+web: gunicorn distiller.wsgi --preload --log-file -

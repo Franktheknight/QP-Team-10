@@ -1,13 +1,13 @@
 from diaries.models import Diary
 from rest_framework import viewsets, permissions
+import json
+import requests
+from keras_preprocessing import text, sequence
+import numpy as np
 from .serializers import DiarySerializer
 
 #Added by Kanishk, 11/29/20; revised by Boopala 12/3/20
 #from keras import preprocessing
-import requests
-from keras_preprocessing import text, sequence
-import json
-import numpy as np
 # Lead Viewset
 THRESHOLD = 0.63
 
@@ -65,11 +65,13 @@ class DiaryTensorflowPreprocessing(viewsets.ModelViewSet):
 
   def get_queryset(self):
         current_user = self.request.user.diaries.all().order_by('-created_at')
+        #current_user = self.request.user.diaries.order_by('-created_at')
         if(current_user.count() < 1):
           current_user = [1,1]
         else:
           current_user = current_user[:1]
         recent_entries =  Diary.objects.all().order_by('-created_at')
+        #recent_entries =  Diary.objects.order_by('-created_at')
         recent_entries = [entry for entry in recent_entries if entry.private == False ]
         recent_entries = [entry for entry in recent_entries if self.recommend(entry, current_user[0]) ]
 
