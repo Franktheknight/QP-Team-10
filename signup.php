@@ -19,7 +19,7 @@
 		<h1 align="center">
 			<span style="color:mediumslateblue">Not Part of the Club Yet?</span> 
 			<br/> 
-			<span style="color:limegreen">Go Agead and Join Today!</span>
+			<span style="color:limegreen">Go Ahead and Join Today!</span>
 		</h1>
 		<hr>
 		

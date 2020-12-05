@@ -5,6 +5,8 @@
 		$username = strtolower($_POST['userName']);
 		$password = $_POST['passWord'];
 		$fullname = $_POST['fullName'];
+		print($fullname);
+		
 		$email = $_POST['emailAddress'];
 	}
 	else{

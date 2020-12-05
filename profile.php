@@ -3,6 +3,7 @@
 	
 	session_start();//Create session to stay logged in
 	@$id = $_SESSION["user_id"];
+	@$username = $_SESSION["username"];
 ?>
 
 <!DOCTYPE html>
@@ -35,15 +36,16 @@
 			$dbEmail = $row1[2];
 			$active = $row1[3];
 			?>
-			<h4 class="profileItem">Name:</h4><?php print " " . $dbFullName ?> 
+			<h4 class="profileItem">Name:</h4><?php print(" " . $dbFullName);?> 
 			<br/><br/> 
-			<h4 class="profileItem">Username:</h4><?php print " ". $dbUserName?> 
+			<h4 class="profileItem">Username:</h4><?php print(" ". $dbUserName);?> 
 			<br/><br/> 
-			<h4 class="profileItem">Email Address:</h4><?php print " " . $dbEmail; 
+			<h4 class="profileItem">Email Address:</h4><?php print(" " . $dbEmail);
 		}
 		else{
 			print "Please sign in...";
 		}
 		?>
+		</div>
 	</body>
 </html>

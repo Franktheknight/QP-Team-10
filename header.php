@@ -17,7 +17,7 @@
 			</div>
 			
 			<div id="logoContainer" class="absolute">
-				<img id="logo" src="logo1.png">
+				<h1 style="font-size:73px;">Diary Distiller</h1>
 			</div>
 			<?php
 				$sql = "SELECT active, fullname FROM accounts where id = '$id'";
@@ -26,11 +26,11 @@
 				if($query){
 					$row = mysqli_fetch_row($query);
 					$active = $row[0];
-					$fullname = $row[1];
+					$full_name = $row[1];
 					
 					if($active == 'y'){?>
 						<span id="account" class="absolute" style="display:inline;">
-							<?php @print("Welcome " . $fullname . " <a href='#'><div style='display:inline-block;' id='arrow-down'></div></a>"); ?> 
+							<?php @print("Welcome " . $full_name . " <a href='#'><div style='display:inline-block;' id='arrow-down'></div></a>"); ?> 
 						</span>
 					<?php 
 					}

@@ -84,9 +84,9 @@
 	<body>
 		<?php include_once 'header.php'; ?>
 		<h1 align="center">
-			<span style="color:mediumslateblue">Did You Find Something? </span> 
+			<span style="color:mediumslateblue">How Was Your Day Today?</span> 
 			<br/> 
-			<span style="color:limegreen">Let's Return It To The Owner!</span>
+			<span style="color:limegreen">Let's Share It With The World!</span>
 		</h1>
 		<hr>
 
