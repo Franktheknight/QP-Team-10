@@ -9,11 +9,13 @@ import Alert from './components/miscellaneous/Alerts';
 import Login from './components/forms/login';
 import Register from './components/forms/register';
 /* eslint-disable react/state-in-constructor  */
-
+/* eslint-disable react/destructuring-assignment  */
 //  let login = false;
 export default class App extends Component {
   state = {
     diaries: [],
+    trendings: [],
+    recommendations: [],
     errors: { msg: {}, status: null },
     messages: {},
     auth: {
@@ -77,6 +79,28 @@ export default class App extends Component {
       .catch((err) => this.returnErrors(err.response.data, err.response.status));
   };
 
+  getTrendings = () => {
+    axios
+      .get('/api/trendings/')
+      .then((res) => {
+        this.setState((state) => {
+          return { ...state, trendings: res.data };
+        });
+      })
+      .catch((err) => this.returnErrors(err.response.data, err.response.status));
+  };
+
+  getRecommendations = () => {
+    axios
+      .get('/api/recommendations/')
+      .then((res) => {
+        this.setState((state) => {
+          return { ...state, recommendations: res.data };
+        });
+      })
+      .catch((err) => this.returnErrors(err.response.data, err.response.status));
+  };
+
   // DELETE LEAD
   deleteDiary = (id) => {
     axios
@@ -101,6 +125,40 @@ export default class App extends Component {
         });
       })
       .catch((err) => this.returnErrors(err.response.data, err.response.status));
+  };
+
+  incLikes = (likedEntry) => {
+    if (this.state.auth.isAuthenticated) {
+      axios
+        .put(`/api/trendings/${likedEntry.pk}/}`, likedEntry)
+        .then((res) => {
+          this.createMessage({ addDiary: 'Diary Liked' });
+          this.setState((state) => {
+            return {
+              ...state,
+              trendings: [],
+            };
+          });
+          this.state.trendings.forEach((item, index) => {
+            if (item.pk === likedEntry.pk) {
+              this.setState((state) => {
+                return {
+                  ...state,
+                  trendings: [...state.trendings, { ...item, likes: item.likes + 1 }],
+                };
+              });
+            } else {
+              this.setState((state) => {
+                return {
+                  ...state,
+                  trendings: [...state.trendings, item],
+                };
+              });
+            }
+          });
+        })
+        .catch((err) => this.returnErrors(err.response.data, err.response.status));
+    }
   };
 
   clearDiaries = () =>
@@ -239,13 +297,13 @@ export default class App extends Component {
               }}
             />
             <Route
-              path="/#/login"
+              path="/login"
               render={() => {
                 return <Login login={this.login} />;
               }}
             />
             <Route
-              path="/#/register"
+              path="/register"
               render={() => {
                 return <Register register={this.register} />;
               }}

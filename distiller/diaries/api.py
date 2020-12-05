@@ -18,9 +18,10 @@ class DiaryViewSet(viewsets.ModelViewSet):
     serializer_class = DiarySerializer
 
     def get_queryset(self):
-        personal_entries = self.request.user.diaries.all().order_by('-created_at')
-        return_set = [entry for entry in personal_entries if not entry.private]
-        return return_set[:10]
+        return_set = self.request.user.diaries.all().order_by('-created_at')
+        if (return_set.count() >= 10):
+            return_set = return_set[:10]
+        return return_set
 
     def perform_create(self, serializer):
         emotion = self.inferEmotion(self.request.data.entry)
@@ -44,6 +45,7 @@ class DiaryViewPopularSet(viewsets.ModelViewSet):
 
     serializer_class = DiarySerializer
     likes_set = Diary.objects.all().order_by('-likes')
+    likes_set = [entry for entry in likes_set if not entry.private]
     if (likes_set.count() >= 10):
         likes_set = likes_set[:10]
     queryset = likes_set

@@ -6,14 +6,14 @@ import PropTypes from 'prop-types';
 /* eslint-disable react/jsx-fragments  */
 /* eslint-disable react/jsx-props-no-spreading  */
 
-const PrivateRender = ({ component: Component, isLoading, isAuthenticated, ...rest }) => {
+const PrivateRender = ({ component: Component, isLoading, isAuthenticated, diaries, ...rest }) => {
   if (isLoading) {
     return <h2>Loading...</h2>;
   }
   if (!isAuthenticated) {
     return <Fragment />;
   }
-  return <Component {...rest} />;
+  return <Component entries={diaries} {...rest} />;
 };
 
 PrivateRender.propTypes = {
