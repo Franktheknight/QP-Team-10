@@ -4,6 +4,68 @@
 	session_start();
 	@$id = $_SESSION["user_id"];
 	@$username = $_SESSION["username"];
+
+	function inferEmotion($inputtext) {
+		#===TOKENIZATION===
+		$inputtext = strtolower($inputtext);
+		$tokens_alpha = explode(" ",$inputtext);
+		#this block of text is supposed to
+		#replace !\"#$%&()*+,-./:;<=>?@\[\\\]^_`{|}~\t\n with ''
+		function clearspecials(&$value,$key)
+		{
+			$value = preg_replace("/\W|_/", '', $value);
+		}
+		array_walk($tokens_alpha,"clearspecials");
+		#unfortunately it also removes apostrophes; creates minor discrepancies
+		#but nothing fatal, still worth looking into
+
+		$json = file_get_contents('tokenizer.json');
+		$data = json_decode($json);
+		$data = $data->config;
+		$data = json_decode($data->index_word);
+		$data = get_object_vars($data);
+
+		function alphaToID(&$value,$key)
+		{
+			global $data;
+			$out = array_search($value,$data);
+			if ($out != False) {
+				$value = $out;
+			} 
+			else {
+				$value = 1;
+			}
+		}
+		array_walk($tokens_alpha,"alphaToID");
+		#===PADDING===
+		if(count($tokens_alpha) < 1000) {
+			$zeroes = array_fill(0,(1000 - count($tokens_alpha)),0);
+			$tokens_padded = array_merge($zeroes,$tokens_alpha);
+		}
+		else {
+			$tokens_padded = array_slice($a,999);
+		}
+		#===SENDING THE REQUEST===
+		$request_body = new \stdClass();
+		$request_body->instances = array($tokens_padded);
+		$request_json = json_encode($request_body);
+
+		$url = 'http://diadist.herokuapp.com/v1/models/diarydistiller/versions/1:predict';
+		//Initiate cURL.
+		$ch = curl_init($url);
+		//Tell cURL that we want to send a POST request.
+		curl_setopt($ch, CURLOPT_POST, 1);
+		//Attach our encoded JSON string to the POST fields.
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $request_json);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+		//Set the content type to application/json
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json')); 
+		//Execute the request
+		$result_json = curl_exec($ch);
+		curl_close($ch);  
+		$response = json_decode($result_json);
+		return $response->predictions[0]
+	}
 ?>
 
 <!DOCTYPE html>
@@ -52,8 +114,9 @@
 					$anon = $_POST['anon'];
 				
 					//Enter POST request to model here
-					$happiness = 0.75;
-					$satisfaction = 0.123;
+					$result_array = inferEmotion($entry)
+					$happiness = $result_array[0];
+					$satisfaction = $result_array[1];
 				
 					//Input to database
 					$sql8 = "INSERT INTO diaries values(null, '$entry', '$username', null,'$anon','$public','$happiness','$satisfaction');";
