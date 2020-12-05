@@ -31,10 +31,11 @@
 			$query = mysqli_query($dbc,	$sql);
 			$userEntries = mysqli_fetch_all($query);
 			
-			$lastHappiness = 1;
-			$lastSatisfaction = 1;
-			
-			if($query){
+			if(count($userEntries) == 0){//If user has no previous entries
+				$lastHappiness = 1;//Set default matching values
+				$lastSatisfaction = 1;
+			}
+			else{
 				$lastUserEntry = $userEntries[count($userEntries)-1];//Find most recent entry of user
 				$lastHappiness = $lastUserEntry[6];
 				$lastSatisfaction = $lastUserEntry[7];
@@ -44,7 +45,7 @@
 			$sql = "SELECT * FROM diaries where user_name != '$username' and public = 'y'";
 			$query = mysqli_query($dbc,$sql);
 			
-			if($query){//Make sure query went through
+			if(count($userEntries) > 0){//Make sure query went through
 				$results = mysqli_fetch_all($query);
 				
 				for($i = count($results)-1; $i >= 0; $i--){
