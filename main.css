@@ -1,0 +1,89 @@
+#leftMenu{ 
+	background-color:white;
+	margin-left:-225px;
+	position:absolute;
+	border-style:solid; 
+	border-width:3.5px;
+	border-color:lightgray;
+	box-shadow:25px 25px 50px black;
+	z-index:2;
+}
+.menuItem{
+	font-size:1.95em;
+	text-decoration:none;
+	color:mediumslateblue;
+	z-index:0;
+}
+.profileItem{
+	color:mediumslateblue;
+}
+.display{
+	display:none;
+}
+.searchResult{
+	vertical-align:text-top;
+	z-index:1;
+	text-align:left; 
+	padding-left:15px; 
+	padding-right:14px;
+	padding-top:15px;
+	padding-bottom:15px;
+	margin-bottom:10px;
+	margin-right:2px;
+	margin-left:2px;
+	position:relative;
+	display:inline-block;
+	background-color:rgb(248,248,248);
+	width:47%;
+}
+#account{
+	top:60px;
+	right:15px;
+	font-size:18px;
+	color:black;
+}
+#arrow-down {
+	width: 0; 
+	height: 0; 
+	border-left: 8.5px solid transparent;
+	border-right: 8.5px solid transparent;
+	border-top: 10px solid black;
+}
+#mainHeader{
+	background-color:mediumslateblue;
+	width:100%;
+	overflow:visible;
+	height:75px;
+}
+.absolute{
+	position:absolute;
+}
+.fixed{
+	position:fixed;
+}
+#personal{
+	background-color:white;
+	right:0px;
+	margin-right:10px;
+	position:absolute;
+	border-style:solid; 
+	border-width:3.5px;
+	border-color:lightgray;
+	box-shadow:20px 20px 50px black;
+	z-index:2;
+}
+#menu{
+	height:45px;
+	padding-top:16px;
+	padding-left:12px;
+}
+#logoContainer{
+	padding-top:15px;
+	padding-left:95px;
+}
+#logo{
+	height:45px;
+}
+#menuContainer{
+	z-index:999;
+}
